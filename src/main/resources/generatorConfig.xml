@@ -8,9 +8,14 @@
     <context id="DB2Tables"  targetRuntime="MyBatis3" defaultModelType="flat">
         <!-- 配置pojo的序列化 -->
          <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
-        <!--添加Lombok插件支持-->
+        <!--添加Lombok插件支持。。。通过继承PluginAdapter自定义实现-->
          <plugin type="com.custom.plugin.LombokPlugin" />
 
+        <!-- 自动生成equals方法和hashcode方法 -->
+       <!-- <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>-->
+
+
+        <!--关闭注释 -->
         <commentGenerator>    
             <property name="suppressDate" value="true"/>
             <property name="suppressAllComments" value="true"/>    
