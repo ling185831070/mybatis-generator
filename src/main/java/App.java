@@ -13,7 +13,7 @@ public class App {
 	public static void main(String[] args) {
 		shell();
 	}
-	
+
 	private static void shell() {
 	    List<String> warnings = new ArrayList<String>();
 	    try {
