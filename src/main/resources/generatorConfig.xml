@@ -1,55 +1,54 @@
-<?xml version="1.0" encoding="UTF-8"?>    
-<!DOCTYPE generatorConfiguration    
-  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"    
-  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">    
-<generatorConfiguration>      
-	<!-- 不使用maven时指定驱动位置 -->
-   <!-- <classPathEntry  location="C:\Users\ling1\Desktop\test\mysql-connector-java-5.1.31.jar"/>    -->
-    <context id="DB2Tables"  targetRuntime="MyBatis3" defaultModelType="flat">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="DB2Tables" targetRuntime="MyBatis3" defaultModelType="flat">
+
         <!-- 配置pojo的序列化 -->
-         <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
-        <!--添加Lombok插件支持。。。通过继承PluginAdapter自定义实现-->
-         <plugin type="com.custom.plugin.LombokPlugin" />
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!--&lt;!&ndash;添加Lombok插件支持。。。通过继承PluginAdapter自定义实现&ndash;&gt;-->
+        <plugin type="com.custom.plugin.LombokPlugin"/>
+        <!--添加通用mapper插件-->
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
+            <property name="caseSensitive" value="true"/>
+        </plugin>
 
-        <!-- 自动生成equals方法和hashcode方法 -->
-       <!-- <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>-->
+
+        <!-- 注释 -->
+        <commentGenerator >
+            <property name="suppressAllComments" value="false"/><!-- 是否取消注释 -->
+            <property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳-->
+        </commentGenerator>
 
 
-        <!--关闭注释 -->
-        <commentGenerator>    
-            <property name="suppressDate" value="true"/>
-            <property name="suppressAllComments" value="true"/>    
-        </commentGenerator>  
-        <!-- 数据库连接配置 -->   
-<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/baihui" userId="root" password="123">
+        <!-- 数据库连接配置 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/baihui"
+                        userId="root" password="123"/>
 
-</jdbcConnection>
-        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时根据长度转换 -->
-    <!--此处指定了自定义的数字类型转换-->  
-    <javaTypeResolver type="com.custom.type.TypeResolver" >
-      <property name="forceBigDecimals" value="false" />  
-    </javaTypeResolver>
+        <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） ,此处使用的时自定义-->
+        <javaTypeResolver type="com.custom.type.TypeResolver">
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
         <!-- 路径配置可使用相对路径，也可以使用绝对路径-->
         <!-- 生成pojo文件-->
-        <javaModelGenerator targetPackage="com.taotao.share" targetProject="D:\Study_Space\IntellJ IDEA_Space\taotao-parent\taotao-commom\taotao-share\src\main\java">
-            <!-- enableSubPackages:是否让schema作为包的后缀 -->
-            <property name="enableSubPackages" value="false"/>
-            <property name="trimStrings" value="true"/>    
-        </javaModelGenerator>
-        <!-- 生成DAO接口xml映射文件-->
-     <!--   <sqlMapGenerator targetPackage="com.mapping" targetProject="D:\Study_Space\IntellJ IDEA_Space\taotao-parent\taotao-commom\taotao-share\src\main\java">
-            <property name="enableSubPackages" value="false"/>
-        </sqlMapGenerator>  -->
-        <!-- 生成DAO接口-->
-  <!--      <javaClientGenerator type="XMLMAPPER" targetPackage="com.dao" targetProject="D:\Study_Space\IntellJ IDEA_Space\taotao-parent\taotao-commom\taotao-share\src\main\java">
-            <property name="enableSubPackages" value="false"/>
-        </javaClientGenerator>   -->
-        <!-- 使用通配符映射所有表-->    
-        <table tableName="tb%" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-		 <generatedKey column="id" sqlStatement="Mysql"/>
-		 <!-- 使用正则表达式替换前缀 -->
-		<domainObjectRenamingRule searchString="^Tb" replaceString="" />
-		</table>
+        <javaModelGenerator targetPackage="com.taotao.share" targetProject="D:\Study_Space\IntellJ IDEA_Space\taotao-parent\taotao-commom\taotao-share\src\main\java"/>
+        <!-- 生成mapper接口-->
+        <sqlMapGenerator targetPackage="com.taotao.mapper" targetProject="D:\Study_Space\IntellJ IDEA_Space\taotao-parent\taotao-commom\taotao-share\src\main\java"/>
+        <!--生成映射xml文件-->
+        <javaClientGenerator targetPackage="com.taotao.mapper.xml" targetProject="D:\Study_Space\IntellJ IDEA_Space\taotao-parent\taotao-commom\taotao-share\src\main\java"
+                             type="XMLMAPPER"/>
+
+        <table tableName="tb%" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="Mysql"/>
+            <!-- 使用正则表达式替换前缀 -->
+            <domainObjectRenamingRule searchString="^Tb" replaceString=""/>
+
+        </table>
     </context>
 
 </generatorConfiguration>
